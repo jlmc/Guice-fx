@@ -1,5 +1,11 @@
 package org.xine.fx.guice;
 
+import org.xine.fx.guice.fxml.FXMLComponentBuilderFactory;
+import org.xine.fx.guice.fxml.FXMLLoadingScope;
+
+import com.google.inject.Inject;
+import com.google.inject.Injector;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -11,21 +17,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.util.Callback;
 
-import org.xine.fx.guice.fxml.FXMLComponentBuilderFactory;
-import org.xine.fx.guice.fxml.FXMLLoadingScope;
-
-import com.google.inject.Inject;
-import com.google.inject.Injector;
-
 /**
  * If you want to `guicify` your JavaFX experience you can use an instance of
  * this class instead of the FXMLLoader that ships with JavaFX 2.x.
  * <p>
- * The easiest way to use this class is by just injecting it into your JavaFX application in the right places.
+ * The easiest way to use this class is by just injecting it into your JavaFX application in the
+ * right places.
  * </p>
  * @author Benjamin P. Jung
  * @see javafx.fxml.FXMLLoader
  */
+
 public class GuiceFXMLLoader {
 
     /**
@@ -42,7 +44,8 @@ public class GuiceFXMLLoader {
     /**
      * This constructor is usually never called directly.
      * <p>
-     * Instead use an existing {@link com.google.inject.Injector} instance to fetch an instance of this class.
+     * Instead use an existing {@link com.google.inject.Injector} instance to fetch an instance of
+     * this class.
      * </p>
      * @param injector
      *            Usually injected via Guice.
@@ -55,13 +58,15 @@ public class GuiceFXMLLoader {
      *             if the injector has no binding for the {@link FXMLController} loading scope.
      */
     @Inject
-    public GuiceFXMLLoader(final Injector injector, final FXMLLoadingScope fxmlLoadingScope) throws IllegalArgumentException, IllegalStateException {
+    public GuiceFXMLLoader(final Injector injector, final FXMLLoadingScope fxmlLoadingScope)
+            throws IllegalArgumentException, IllegalStateException {
         super();
         if (injector == null) {
             throw new IllegalArgumentException("The Injector instance must not be null.");
         }
         if (!injector.getScopeBindings().containsKey(FXMLController.class)) {
-            throw new IllegalStateException("FXMLController loading scope is not bound in your Injector.");
+            throw new IllegalStateException(
+                    "FXMLController loading scope is not bound in your Injector.");
         }
         this.injector = injector;
         this.fxmlLoadingScope = fxmlLoadingScope;
@@ -70,7 +75,8 @@ public class GuiceFXMLLoader {
     /**
      * Loads an object hierarchy from a FXML document.
      * <p>
-     * A simple wrapper around the {@link javafx.fxml.FXMLLoader#load(URL, ResourceBundle) load method} of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related magic.
+     * A simple wrapper around the {@link javafx.fxml.FXMLLoader#load(URL, ResourceBundle) load
+     * method} of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related magic.
      * </p>
      * @param url
      *            URL of the FXML resource to be loaded.
@@ -120,7 +126,8 @@ public class GuiceFXMLLoader {
     /**
      * Loads an object hierarchy from a FXML document.
      * <p>
-     * A simple wrapper around the {@link javafx.fxml.FXMLLoader#load(URL) load method} of JavaFX' FXMLLoader class that adds a tiny notch of Guice-related magic.
+     * A simple wrapper around the {@link javafx.fxml.FXMLLoader#load(URL) load method} of JavaFX'
+     * FXMLLoader class that adds a tiny notch of Guice-related magic.
      * </p>
      * @param url
      *            URL of the FXML resource to be loaded.

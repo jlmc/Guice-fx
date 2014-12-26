@@ -1,5 +1,7 @@
 package org.xine.fx.guice.fxml;
 
+import com.google.inject.Injector;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -21,8 +23,6 @@ import javafx.util.converter.FloatStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.LongStringConverter;
 import javafx.util.converter.ShortStringConverter;
-
-import com.google.inject.Injector;
 
 /**
  * The Class FXMLComponentBuilder.
@@ -99,7 +99,8 @@ final class FXMLComponentBuilder<T> extends AbstractMap<String, Object> implemen
         final T component = this.injector.getInstance(this.componentClass);
         for (final String key : this.componentProperties.keySet()) {
             final Object value = this.componentProperties.get(key);
-            final String setterName = String.format("set%s%s", key.substring(0, 1).toUpperCase(), key.substring(1));
+            final String setterName = String.format("set%s%s", key.substring(0, 1).toUpperCase(),
+                    key.substring(1));
             try {
                 Method setterMethod = null;
                 for (final Method method : this.componentClass.getMethods()) {
@@ -109,11 +110,14 @@ final class FXMLComponentBuilder<T> extends AbstractMap<String, Object> implemen
                     }
                 }
                 if (setterMethod == null) {
-                    throw new IllegalStateException(String.format("No setter for field '%s' could be found.", key));
+                    throw new IllegalStateException(String.format(
+                            "No setter for field '%s' could be found.", key));
                 }
-                final StringConverter<?> stringConverter = getStringConverter(setterMethod.getParameterTypes()[0]);
+                final StringConverter<?> stringConverter = getStringConverter(setterMethod
+                        .getParameterTypes()[0]);
                 setterMethod.invoke(component, stringConverter.fromString((String) value));
-            } catch (SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InstantiationException e) {
+            } catch (SecurityException | IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException | InstantiationException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -131,11 +135,13 @@ final class FXMLComponentBuilder<T> extends AbstractMap<String, Object> implemen
      *             the illegal access exception
      */
     @SuppressWarnings("static-method")
-    private StringConverter<?> getStringConverter(final Class<?> valueClass) throws InstantiationException, IllegalAccessException {
+    private StringConverter<?> getStringConverter(final Class<?> valueClass)
+            throws InstantiationException, IllegalAccessException {
         if (STRING_CONVERTERS.containsKey(valueClass)) {
             return STRING_CONVERTERS.get(valueClass).newInstance();
         }
-        throw new IllegalArgumentException(String.format("Can't find StringConverter for class '%s'.", valueClass.getName()));
+        throw new IllegalArgumentException(String.format(
+                "Can't find StringConverter for class '%s'.", valueClass.getName()));
     }
 
     /*

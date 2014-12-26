@@ -1,9 +1,5 @@
 package org.xine.fx.guice.fxml;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.xine.fx.guice.FXMLController;
 import org.xine.fx.guice.GuiceFXMLLoader;
 import org.xine.fx.guice.controllerlookup.ControllerLookup;
@@ -13,6 +9,10 @@ import com.google.inject.Key;
 import com.google.inject.Provider;
 import com.google.inject.Scope;
 import com.google.inject.Singleton;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The Class FXMLLoadingScope.
@@ -66,7 +66,8 @@ public final class FXMLLoadingScope implements Scope {
             @Override
             public T get() {
                 final T providedObject = unscoped.get();
-                if (FXMLLoadingScope.this.identifiables != null && providedObject instanceof IdentifiableController) {
+                if (FXMLLoadingScope.this.identifiables != null
+                        && providedObject instanceof IdentifiableController) {
                     final IdentifiableController identifiable = (IdentifiableController) providedObject;
                     FXMLLoadingScope.this.identifiables.add(identifiable);
                 }

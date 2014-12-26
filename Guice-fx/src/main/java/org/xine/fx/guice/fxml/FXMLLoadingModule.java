@@ -80,7 +80,8 @@ public final class FXMLLoadingModule extends AbstractModule {
         @Override
         public ControllerLookup get() {
             if (!this.fxmlLoadingScope.isActive()) {
-                throw new IllegalStateException("A ControllerLookup instance cannot be injected while outside of the FXML Loading scope.");
+                throw new IllegalStateException(
+                        "A ControllerLookup instance cannot be injected while outside of the FXML Loading scope.");
             }
             return new ControllerLookup(this.fxmlLoadingScope.getIdentifiables());
         }

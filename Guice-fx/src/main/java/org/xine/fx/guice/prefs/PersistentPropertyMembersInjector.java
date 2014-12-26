@@ -3,6 +3,11 @@ package org.xine.fx.guice.prefs;
 import static java.util.prefs.Preferences.systemNodeForPackage;
 import static java.util.prefs.Preferences.userNodeForPackage;
 
+import org.xine.fx.guice.PersistentProperty;
+import org.xine.fx.guice.PersistentProperty.NodeType;
+
+import com.google.inject.MembersInjector;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -19,16 +24,12 @@ import javafx.beans.value.WritableLongValue;
 import javafx.beans.value.WritableStringValue;
 import javafx.beans.value.WritableValue;
 
-import org.xine.fx.guice.PersistentProperty;
-import org.xine.fx.guice.PersistentProperty.NodeType;
-
-import com.google.inject.MembersInjector;
-
 /**
  * The Class PersistentPropertyMembersInjector.
  * @param <T>
  *            the generic type
  */
+
 final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
 
     /** The field. */
@@ -70,7 +71,8 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
             prefs = userNodeForPackage(nodeClass);
             break;
         default:
-            throw new IllegalStateException(String.format("Unknown Preferences node type: %s!", nodeType));
+            throw new IllegalStateException(String.format("Unknown Preferences node type: %s!",
+                    nodeType));
         }
 
         // Only set the initial value of the property during injection if the
@@ -84,10 +86,13 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
             ((Property<?>) this.field.get(instance)).addListener(new ChangeListener<Object>() {
                 @SuppressWarnings("synthetic-access")
                 @Override
-                public void changed(final ObservableValue<?> prop, final Object oldValue, final Object newValue) {
+                public void changed(final ObservableValue<?> prop, final Object oldValue,
+                        final Object newValue) {
                     @SuppressWarnings("unused")
-                    final String curVal = prefs.get(PersistentPropertyMembersInjector.this.annotation.key(), null);
-                    prefs.put(PersistentPropertyMembersInjector.this.annotation.key(), String.valueOf(newValue));
+                    final String curVal = prefs.get(
+                            PersistentPropertyMembersInjector.this.annotation.key(), null);
+                    prefs.put(PersistentPropertyMembersInjector.this.annotation.key(),
+                            String.valueOf(newValue));
                 }
             });
         } catch (IllegalArgumentException | IllegalAccessException e) {
@@ -107,7 +112,8 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
     @SuppressWarnings("unused")
     private void updatePropertyField(final T instance, final String newValString) {
         @SuppressWarnings("unchecked")
-        final Class<? extends Property<?>> fieldType = (Class<? extends Property<?>>) this.field.getType();
+        final Class<? extends Property<?>> fieldType = (Class<? extends Property<?>>) this.field
+                .getType();
         try {
 
             final Object fieldInstance = this.field.get(instance);
@@ -133,7 +139,8 @@ final class PersistentPropertyMembersInjector<T> implements MembersInjector<T> {
                 throw new IllegalStateException("Cannot inject value into field.");
             }
             setter.invoke(fieldInstance, newVal);
-        } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+        } catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException
+                | NoSuchMethodException | SecurityException e) {
             // TODO Use a more meaningful exception
             throw new RuntimeException(e);
         }

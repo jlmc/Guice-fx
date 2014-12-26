@@ -1,11 +1,11 @@
 package org.xine.fx.guice.fxml;
 
-import java.lang.reflect.Field;
-
 import org.xine.fx.guice.FXMLController;
 import org.xine.fx.guice.controllerlookup.ControllerLookup;
 
 import com.google.inject.MembersInjector;
+
+import java.lang.reflect.Field;
 
 /**
  * The Class FXMLControllerMembersInjector.
@@ -32,7 +32,8 @@ final class FXMLControllerMembersInjector<T> implements MembersInjector<T> {
      * @param scope
      *            the scope
      */
-    FXMLControllerMembersInjector(final Field field, final FXMLController annotation, final FXMLLoadingScope scope) {
+    FXMLControllerMembersInjector(final Field field, final FXMLController annotation,
+            final FXMLLoadingScope scope) {
         super();
         this.field = field;
         this.annotation = annotation;
@@ -48,7 +49,8 @@ final class FXMLControllerMembersInjector<T> implements MembersInjector<T> {
     public void injectMembers(final T instance) {
         Object controllerInstance = null;
         if (!this.annotation.controllerId().isEmpty()) {
-            controllerInstance = new ControllerLookup(this.scope.getIdentifiables()).lookup(this.annotation.controllerId());
+            controllerInstance = new ControllerLookup(this.scope.getIdentifiables())
+                    .lookup(this.annotation.controllerId());
         } else {
             controllerInstance = this.scope.getInstance(this.annotation.controllerId());
         }

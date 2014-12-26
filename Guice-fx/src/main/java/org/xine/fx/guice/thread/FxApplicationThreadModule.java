@@ -8,6 +8,7 @@ import com.google.inject.matcher.Matchers;
 /**
  * The Class FxApplicationThreadModule.
  */
+
 public final class FxApplicationThreadModule extends AbstractModule {
 
     /*
@@ -16,7 +17,8 @@ public final class FxApplicationThreadModule extends AbstractModule {
      */
     @Override
     protected void configure() {
-        bindInterceptor(Matchers.any(), Matchers.annotatedWith(FxApplicationThread.class), new FxApplicationThreadMethodInterceptor());
+        bindInterceptor(Matchers.any(), Matchers.annotatedWith(FxApplicationThread.class),
+                new FxApplicationThreadMethodInterceptor());
     }
 
 }

@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 /**
  * The Interface IdentifiableController.
  */
+
 public interface IdentifiableController {
 
     /**

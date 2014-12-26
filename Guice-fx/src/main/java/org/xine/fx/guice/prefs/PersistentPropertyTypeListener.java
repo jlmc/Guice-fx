@@ -1,12 +1,12 @@
 package org.xine.fx.guice.prefs;
 
-import java.lang.reflect.Field;
-
 import org.xine.fx.guice.PersistentProperty;
 
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+
+import java.lang.reflect.Field;
 
 /**
  * The listener interface for receiving persistentPropertyType events.
@@ -29,7 +29,8 @@ class PersistentPropertyTypeListener implements TypeListener {
 
     /*
      * (non-Javadoc)
-     * @see com.google.inject.spi.TypeListener#hear(com.google.inject.TypeLiteral, com.google.inject.spi.TypeEncounter)
+     * @see com.google.inject.spi.TypeListener#hear(com.google.inject.TypeLiteral,
+     * com.google.inject.spi.TypeEncounter)
      */
     @Override
     public <T> void hear(final TypeLiteral<T> typeLiteral, final TypeEncounter<T> typeEncounter) {

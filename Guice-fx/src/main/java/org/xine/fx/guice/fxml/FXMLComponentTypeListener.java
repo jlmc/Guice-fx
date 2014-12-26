@@ -1,13 +1,13 @@
 package org.xine.fx.guice.fxml;
 
-import javax.inject.Inject;
-
 import org.xine.fx.guice.FXMLComponent;
 import org.xine.fx.guice.GuiceFXMLLoader;
 
 import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+
+import javax.inject.Inject;
 
 /**
  * The listener interface for receiving FXMLComponentType events.
@@ -41,7 +41,8 @@ final class FXMLComponentTypeListener implements TypeListener {
         final Class<? super T> rawType = typeLiteral.getRawType();
         if (rawType.isAnnotationPresent(FXMLComponent.class)) {
             final FXMLComponent annotation = rawType.getAnnotation(FXMLComponent.class);
-            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(this.fxmlLoader, annotation);
+            final FXMLComponentMembersInjector<T> membersInjector = new FXMLComponentMembersInjector<>(
+                    this.fxmlLoader, annotation);
             typeEncounter.register(membersInjector);
         }
     }

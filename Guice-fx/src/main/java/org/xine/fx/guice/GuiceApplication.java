@@ -1,5 +1,14 @@
 package org.xine.fx.guice;
 
+import org.xine.fx.guice.fxml.FXMLLoadingModule;
+import org.xine.fx.guice.prefs.PersistentPropertyModule;
+import org.xine.fx.guice.thread.FxApplicationThreadModule;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
@@ -9,15 +18,6 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.application.Application;
-
-import org.xine.fx.guice.fxml.FXMLLoadingModule;
-import org.xine.fx.guice.prefs.PersistentPropertyModule;
-import org.xine.fx.guice.thread.FxApplicationThreadModule;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
 
 /**
  * The Class GuiceApplication.
@@ -31,7 +31,8 @@ public abstract class GuiceApplication extends Application {
     private Injector injector;
 
     /**
-     * List of annotations that are not allowed on constructors of {@code GuiceApplication} instances.
+     * List of annotations that are not allowed on constructors of {@code GuiceApplication}
+     * instances.
      */
     private static final Set<Class<? extends Annotation>> injectAnnotationClasses = new HashSet<>();
     static {
@@ -59,7 +60,8 @@ public abstract class GuiceApplication extends Application {
         // annotated with @Inject!
         for (final Constructor<?> c : instance.getClass().getConstructors()) {
             if (isInjectAnnotationPresent(c)) {
-                throw new IllegalStateException("GuiceApplication with constructor that is marked with @Inject is not allowed!");
+                throw new IllegalStateException(
+                        "GuiceApplication with constructor that is marked with @Inject is not allowed!");
             }
         }
 
@@ -92,7 +94,8 @@ public abstract class GuiceApplication extends Application {
      * This method is used to fetch and/or create (Guice) modules necessary
      * to fully construct this application.
      * <p>
-     * The modules that are initialized in this method and added to the passed List will be used to create the {@link Injector} instance that is used in the context of this application.
+     * The modules that are initialized in this method and added to the passed List will be used to
+     * create the {@link Injector} instance that is used in the context of this application.
      * </p>
      * @param modules
      *            A list of modules (initially empty) that shall be used to create the
@@ -121,7 +124,8 @@ public abstract class GuiceApplication extends Application {
      * @param object
      *            Accessible object to be analyzed. Must not be {@code null}
      * @return
-     *         {@code true} if the given constructor is annotated with an Inject annotation, {@code false} otherwise.
+     *         {@code true} if the given constructor is annotated with an Inject annotation,
+     *         {@code false} otherwise.
      * @see javax.inject.Inject
      * @see com.google.inject.Inject
      */

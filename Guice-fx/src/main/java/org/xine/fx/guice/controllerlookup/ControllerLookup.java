@@ -6,7 +6,8 @@ import java.util.Collection;
  * A store of all controller instances that have been injected while an FXML
  * control was being created.
  * <p>
- * {@link ControllerLookup} must only be injected into controllers that are created while an FXML control is being created.
+ * {@link ControllerLookup} must only be injected into controllers that are created while an FXML
+ * control is being created.
  * @author jcosta
  */
 public class ControllerLookup {
@@ -29,7 +30,8 @@ public class ControllerLookup {
      * @param <T>
      *            the generic type
      * @param id
-     *            The string ID of the controller as returned by {@link IdentifiableController#getId()}
+     *            The string ID of the controller as returned by
+     *            {@link IdentifiableController#getId()}
      * @return The controller with the given ID that has just been
      *         looked up.
      */

@@ -1,5 +1,9 @@
 package org.xine.fx.guice.fxml;
 
+import org.xine.fx.guice.FXMLComponent;
+
+import com.google.inject.Injector;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.JavaFXBuilderFactory;
@@ -8,10 +12,6 @@ import javafx.util.BuilderFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import org.xine.fx.guice.FXMLComponent;
-
-import com.google.inject.Injector;
 
 /**
  * A factory for creating FXMLComponentBuilder objects.
@@ -24,7 +24,8 @@ public final class FXMLComponentBuilderFactory implements BuilderFactory {
     private Injector injector;
 
     /** The Constant LOGGER. */
-    private static final Logger LOGGER = Logger.getLogger(FXMLComponentBuilderFactory.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FXMLComponentBuilderFactory.class
+            .getName());
 
     /** The default builder factory. */
     private final JavaFXBuilderFactory defaultBuilderFactory = new JavaFXBuilderFactory();
