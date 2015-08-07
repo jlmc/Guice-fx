@@ -6,23 +6,29 @@
   <name>Guice-fx</name>
   
     <!-- Project developers -->
-    <developers>
+   <developers>
         <developer>
             <id>xine</id>
             <name>xine</name>
             <email>jlmcxine@gmail.com</email>
         </developer>
-    </developers>
+   </developers>
+	
+  <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
   
   <dependencies>
   
-        <!--  <dependency>
+    <!--
+		<dependency>
             <groupId>javafx</groupId>
             <artifactId>jfxrt</artifactId>
             <version>${java.version}</version>
             <scope>system</scope>
             <systemPath>${java.home}/lib/jfxrt.jar</systemPath>
-        </dependency> -->
+    </dependency> 
+		-->
         
         <dependency>
             <groupId>com.google.inject</groupId>
