@@ -1,10 +1,5 @@
 package org.xine.fx.guice.fxml;
 
-import org.xine.fx.guice.FXMLComponent;
-import org.xine.fx.guice.GuiceFXMLLoader;
-
-import com.google.inject.MembersInjector;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -13,6 +8,11 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
+
+import org.xine.fx.guice.FXMLComponent;
+import org.xine.fx.guice.GuiceFXMLLoader;
+
+import com.google.inject.MembersInjector;
 
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -57,7 +57,6 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
                         locationString), e);
             }
         }
-        @SuppressWarnings("hiding")
         final FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(location);
         final String resourcesString = this.annotation.resources();
@@ -82,21 +81,18 @@ final class FXMLComponentMembersInjector<T> implements MembersInjector<T> {
 
         // Actual instantiation of the component has to happen on the JavaFX thread.
         // We simply delegate the loading.
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    final Object loaded = fxmlLoader.load();
-                    if (loaded != instance) {
-                        throw new IllegalStateException(
-                                "Loading of FXML component went terribly wrong! :-(");
-                    }
-                } catch (final IOException e) {
-                    throw new RuntimeException(e);
-                }
+        Platform.runLater(() -> {
+		    try {
+		        final Object loaded = fxmlLoader.load();
+		        if (loaded != instance) {
+		            throw new IllegalStateException(
+		                    "Loading of FXML component went terribly wrong! :-(");
+		        }
+		    } catch (final IOException e) {
+		        throw new RuntimeException(e);
+		    }
 
-            }
-        });
+		});
 
     }
 }

@@ -1,6 +1,5 @@
 package org.xine.fx.guice.controllerlookup;
 
-import javafx.scene.Parent;
 
 /**
  * The Interface IdentifiableController.
